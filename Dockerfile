@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM golang:1.19-bullseye AS golang-builder
+FROM golang:1.21-bullseye AS golang-builder
 
 ARG PACKAGE=nginx-prometheus-exporter
 ARG TARGET_DIR=nginx-exporter
