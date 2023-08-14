@@ -5,8 +5,8 @@ FROM golang:1.21-bullseye AS golang-builder
 ARG PACKAGE=nginx-prometheus-exporter
 ARG TARGET_DIR=nginx-exporter
 # renovate: datasource=github-releases depName=nginxinc/nginx-prometheus-exporter
-ARG VERSION=0.11.0
-ARG REF=v${VERSION}
+ARG BUILD_VERSION=0.11.0
+ARG REF=v${BUILD_VERSION}
 ARG CGO_ENABLED=0
 
 ARG TARGETARCH
@@ -24,11 +24,11 @@ RUN --mount=type=cache,target=/root/.cache/go-build <<EOT /bin/bash
 
     pushd ${PACKAGE}
     go mod download
-    GOOS=linux GOARCH=$TARGETARCH go build -trimpath -a -ldflags "-s -w -X main.version=${VERSION}" -o nginx-prometheus-exporter .
+    GOOS=linux GOARCH=$TARGETARCH go build -trimpath -a -ldflags "-s -w -X main.version=${BUILD_VERSION}" -o nginx-prometheus-exporter .
 
     mkdir -p /opt/bitnami/${TARGET_DIR}/licenses
     mkdir -p /opt/bitnami/${TARGET_DIR}/bin
-    cp -f LICENSE /opt/bitnami/${TARGET_DIR}/licenses/nginx-exporter-${VERSION}.txt
+    cp -f LICENSE /opt/bitnami/${TARGET_DIR}/licenses/nginx-exporter-${BUILD_VERSION}.txt
     cp -f ${PACKAGE} /opt/bitnami/${TARGET_DIR}/bin/${PACKAGE}
     popd
 
