@@ -2,7 +2,7 @@
 
 ARG BUILD_VERSION=0.11.0
 
-FROM golang:1.24-trixie AS golang-builder
+FROM golang:1.27-trixie AS golang-builder
 
 ARG PACKAGE=nginx-prometheus-exporter
 ARG TARGET_DIR=nginx-exporter
